@@ -1,6 +1,6 @@
 export class Product {
   #stock: number;
-  hold: number;
+  #hold: number;
   #id: number;
   #description: string;
 
@@ -8,7 +8,23 @@ export class Product {
     this.#id = id;
     this.#description = description;
     this.#stock = stock;
-    this.hold = hold;
+    this.#hold = hold;
+  }
+
+  get hold() {
+    return this.#hold;
+  }
+
+  get stock() {
+    return this.#stock;
+  }
+
+  get description() {
+    return this.#description;
+  }
+  
+  increaseHold(quantity: number) {
+    this.#hold += quantity;
   }
 
   

@@ -6,7 +6,6 @@ import { Product } from "../src/product";
 
 describe("Add item to order", () => {
     it("should add an item when sufficient stock is available", () => {
-        const productId = 327;
         const quantity = 1;
 
         const order = new Order()
@@ -19,4 +18,14 @@ describe("Add item to order", () => {
         assert.deepStrictEqual(product.hold, 1)
         assert.deepStrictEqual(itemQuantity, 1)
     });
+
+    it("should reject adding an item when insufficient stock and no stock is on hold", () => {
+        const order = new Order();
+        const product = new Product(327, "Ibanez Tube Screamer", 1, 0)
+
+        assert.throws(() => order.addItem(product, 2), {
+            name: "InsufficientStock",
+            message: "Insufficient stock of Ibanez Tube Screamer. Only 1 currently available."
+        })
+    })
 });
