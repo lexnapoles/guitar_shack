@@ -27,5 +27,13 @@ export class Product {
     this.#hold += quantity;
   }
 
+  availableStock() {
+    return this.#stock - this.#hold;
+  }
+  
+  hasEnoughStock(quantity: number) {
+    return this.availableStock() >= quantity;
+  }
+
   
 }

@@ -8,10 +8,8 @@ export class Order {
   }
 
   addItem(product: Product, quantity: number) {
-    const availableStock = product.stock - product.hold;
-
-    if (quantity > availableStock) {
-      throw new InsufficientStock(`Insufficient stock of ${product.description}. Only ${availableStock} currently available.`)
+    if (!product.hasEnoughStock(quantity)) {
+      throw new InsufficientStock(product)
     }
     
     product.increaseHold(quantity);
@@ -25,7 +23,9 @@ export class Order {
 }
 
 class InsufficientStock extends Error {
-  constructor(message: string, options?: ErrorOptions) {
+  constructor(product: Product, options?: ErrorOptions) {
+    const message = `Insufficient stock of ${product.description}. Only ${product.availableStock()} currently available.`
+    
     super(message, options);
     
     this.name = "InsufficientStock";
