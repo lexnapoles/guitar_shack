@@ -1,17 +1,18 @@
-type productId = string;
+import { Product } from "./product";
 
 export class Order {
-  #items: Record<productId, number>[];
+  #items: Map<Product, number>;
 
   constructor() {
-    this.#items = [];
+    this.#items = new Map();
   }
 
-  addItem(productId: number, quantity: number) {
-    this.#items.push({ productId, quantity });
+  addItem(product: Product, quantity: number) {
+    product.hold += quantity;
+    this.#items.set(product, quantity);
   }
 
-  getItem(id: number) {
-    return this.#items.find(({ productId }) => productId === id);
+  getItemQuantity(product: Product) {
+    return this.#items.get(product);
   }
 }
