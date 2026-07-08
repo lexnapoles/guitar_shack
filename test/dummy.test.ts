@@ -1,9 +1,15 @@
 import "mocha"
 import { strict as assert } from "assert";
 import {describe, it} from "node:test";
+import { Order } from "./order";
 
-describe("dummy", () => {
-    it("should pass", () => {
-        assert.equal(true, true);
+describe("Add item to order", () => {
+    it("should add an item when sufficient stock is available", () => {
+        const productId = 327;
+        const order = new Order()
+        const item = order.getItem(productId);
+
+        
+        assert.deepStrictEqual(item.quantity, 1 )
     });
 });
