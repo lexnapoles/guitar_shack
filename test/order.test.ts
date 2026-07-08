@@ -6,10 +6,14 @@ import { Order } from "../src/order";
 describe("Add item to order", () => {
     it("should add an item when sufficient stock is available", () => {
         const productId = 327;
+        const quantity = 1;
+
         const order = new Order()
+
+        order.addItem(productId, quantity);
+
         const item = order.getItem(productId);
 
-        
-        assert.deepStrictEqual(item.quantity, 1 )
+        assert.deepStrictEqual(item?.quantity, 1)
     });
 });
